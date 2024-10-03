@@ -28,8 +28,8 @@ pipeline {
       steps {
         sh '''
            echo "PATH: $PATH"
-          // which sonar-scanner || echo "sonar-scanner not found in PATH"  # Check sonar-scanner in PATH
-          // sonar-scanner -v  # Verify sonar-scanner installation
+          # which sonar-scanner || echo "sonar-scanner not found in PATH"  # Check sonar-scanner in PATH
+          # sonar-scanner -v  # Verify sonar-scanner installation
         '''
       }
     }
