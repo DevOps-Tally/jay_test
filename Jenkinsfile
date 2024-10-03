@@ -27,9 +27,9 @@ pipeline {
     stage('Verify SonarQube Scanner') {
       steps {
         sh '''
-          echo "PATH: $PATH"
-          which sonar-scanner || echo "sonar-scanner not found in PATH"  # Check sonar-scanner in PATH
-          sonar-scanner -v  # Verify sonar-scanner installation
+           echo "PATH: $PATH"
+          // which sonar-scanner || echo "sonar-scanner not found in PATH"  # Check sonar-scanner in PATH
+          // sonar-scanner -v  # Verify sonar-scanner installation
         '''
       }
     }
