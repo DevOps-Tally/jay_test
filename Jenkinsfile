@@ -52,7 +52,7 @@ pipeline {
 //      steps {
 //        script {
 //          sh '''
-//            docker build -t $APP_IMAGE .  # Build Docker image
+//            sudo docker build -t $APP_IMAGE .  # Build Docker image
 //          '''
 //        }
 //      }
@@ -62,7 +62,7 @@ pipeline {
       steps{
         sh '''
           #!/bin/bash
-          docker build -t $APP_IMAGE:${BUILD_NUMBER} .
+          sudo docker build -t $APP_IMAGE:${BUILD_NUMBER} .
           '''
       }
     }
@@ -70,7 +70,7 @@ pipeline {
     stage('Run App') {
       steps {
         sh '''
-          docker run -d -p 8000:8000 $APP_IMAGE:${BUILD_NUMBER}  # Run the application in a container
+          sudo docker run -d -p 8000:8000 $APP_IMAGE:${BUILD_NUMBER}  # Run the application in a container
         '''
       }
     }
@@ -78,7 +78,7 @@ pipeline {
     stage('SBOM with Syft') {
       steps {
         sh '''
-          docker run --rm -v $(pwd):/project anchore/syft:latest /project -o cyclonedx-json > sbom.json  # Generate SBOM
+          sudo docker run --rm -v $(pwd):/project anchore/syft:latest /project -o cyclonedx-json > sbom.json  # Generate SBOM
         '''
       }
     }
@@ -86,7 +86,7 @@ pipeline {
     stage('Vulnerability Scan with Grype') {
       steps {
         sh '''
-          docker run --rm -v $(pwd):/project anchore/grype:latest sbom:/project/sbom.json  # Scan SBOM for vulnerabilities
+          sudo docker run --rm -v $(pwd):/project anchore/grype:latest sbom:/project/sbom.json  # Scan SBOM for vulnerabilities
         '''
       }
     }
